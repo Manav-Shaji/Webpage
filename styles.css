@@ -202,33 +202,38 @@ header {
     flex-direction: column;
     align-items: center;
     position: absolute;
-    top: 60px;
+    top: 70px; /* Adjust based on header height */
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(18, 18, 18, 0.85);
+    background: rgba(18, 18, 18, 0.9);
     width: 90%;
+    max-width: 350px; /* Avoids overly wide menu */
     padding: 15px 0;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     text-align: center;
     opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
   }
 
   #navbar ul.active {
     display: flex;
     opacity: 1;
-    transform: translateY(0);
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear;
   }
 
   #navbar ul li {
     width: 100%;
-    margin: 10px 0;
+    text-align: center;
+    padding: 10px 0;
   }
 
   #navbar ul li a {
     display: block;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: white;
     text-decoration: none;
@@ -239,9 +244,10 @@ header {
   #navbar ul li a:hover,
   #navbar ul li a.active {
     color: rgba(255, 255, 255, 0.8);
-    background: var(--shadow-color);
+    background: rgba(255, 255, 255, 0.1);
   }
 }
+
 
 /* Typed Text */
 #typed-output {
