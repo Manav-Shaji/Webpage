@@ -204,7 +204,7 @@ header {
     position: absolute;
     top: 60px;
     left: 50%;
-    transform: translateX(-20px);
+    transform: translateX(-50%);
     background: rgba(18, 18, 18, 0.85);
     width: 90%;
     padding: 15px 0;
