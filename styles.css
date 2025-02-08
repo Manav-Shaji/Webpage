@@ -79,14 +79,17 @@ header {
   transition: all 0.3s ease-in-out;
 }
 
+/* Navbar Container */
 #navbar .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 90vw;
   overflow: hidden;
+  padding: 1rem;
 }
 
+/* Logo */
 #logo {
   font-size: 1.8rem;
   font-weight: bold;
@@ -101,6 +104,7 @@ header {
   transform: scale(1.1);
 }
 
+/* Desktop Navbar */
 #navbar ul {
   display: flex;
   list-style: none;
@@ -126,23 +130,20 @@ header {
   transform: translateY(-2px);
 }
 
-.hamburger-menu{
-  display: none;
-  font-size: 1.875rem;
+/* Hamburger Menu (Mobile) */
+.hamburger-menu {
+  display: none; /* Hidden by default */
+  font-size: 2rem;
   cursor: pointer;
-  color: var(--text-color);
-  transition: all 0.3s ease-in-out;
   position: absolute;
-  top: 50%;
   right: 1rem;
-  transform: translateY(-50%);
+  top: 1rem;
   z-index: 1100;
-
 }
 
-
-.hamburger-menu.active {
-  transform: rotate(90deg);
+body.menu-open {
+overflow: hidden;
+height: 100vh;
 }
 
 /* Home Section */
@@ -416,68 +417,100 @@ footer {
   font-size: 0.9rem;
 }
 
-/* Responsive Design */
+/* Responsive Design for Mobile (<= 768px) */
 @media (max-width: 768px) {
-
+  /* AOS Animations Adjustments */
   [data-aos] {
-    transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+      transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
   }
 
-  [data-aos="fade-up"],
-  [data-aos="fade-down"] {
-    transform: translateY(0.9375rem);
+  [data-aos='fade-up'],
+  [data-aos='fade-down'] {
+      transform: translateY(0.9375rem);
   }
 
-  [data-aos="zoom-in"] {
-    transform: scale(0.95);
+  [data-aos='zoom-in'] {
+      transform: scale(0.95);
   }
 
-  /* Hamburger menu positioning */
+  /* Hamburger Menu */
   .hamburger-menu {
-    display: block;
-    position: absolute; /* ✅ Keeps it at the top-right */
-    right: 1rem;
-    top: 1rem;
-    z-index: 1100;
-    font-size: 2rem;
-    cursor: pointer;
+      display: block;
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      z-index: 1100;
+      font-size: 2rem;
+      cursor: pointer;
   }
 
-  /* Navbar dropdown */
+  /* Navbar Styles */
+  #navbar {
+      position: relative; /* Ensure it respects layout */
+      min-height: 4rem; /* Adjust navbar height to avoid clipping */
+  }
+
   #navbar ul {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 3rem;
-    left: 0;
-    width: 100%;
-    background: rgba(18, 18, 18, 0.95);
-    padding: 1rem 0;
-    text-align: center;
-    opacity: 0;
-    transition: all 0.3s ease-in-out;
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 3rem;
+      left: 0;
+      width: 100%;
+      background: rgba(18, 18, 18, 0.95);
+      padding: 1rem 0;
+      text-align: center;
+      opacity: 0;
+      transition: all 0.3s ease-in-out;
   }
 
-  /* ✅ Show menu when active */
+  /* Show Navbar When Active */
   #navbar ul.active {
-    display: flex;
-    opacity: 1;
+      display: flex;
+      opacity: 1;
+      padding-top: 2rem;
+      margin-top: 2rem; /* Push the navbar down */
   }
 
-  /* Full width items */
+  /* Full-Width Navbar Items */
   #navbar ul li {
-    width: 100%;
-    padding: 0.75rem 0;
+      width: 100%;
+      padding: 0.75rem 0;
   }
 
   #navbar ul li a {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-light);
   }
 
-  /* Grid fix */
+  .header {
+      position: relative;
+      z-index: 1200;
+  }
+
+  /* Grid Fix for Mobile */
   .tech-grid {
-    grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
+  }
+}
+
+/* Responsive Design for Desktop (> 768px) */
+@media (min-width: 769px) {
+  .hamburger-menu {
+      display: none !important;
+  }
+
+  /* Ensure Navbar is Visible and Horizontal */
+  #navbar ul {
+      display: flex !important;
+      position: static;
+      opacity: 1;
+      flex-direction: row;
+      background: none;
+  }
+
+  #navbar ul li {
+      margin-left: 1rem;
   }
 }
