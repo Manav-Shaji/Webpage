@@ -64,6 +64,11 @@ h2 {
   padding: 0 1rem;
 }
 
+.about-container {
+  scroll-margin-top: 30px;
+
+}
+
 /* Header and Navigation */
 header {
   background: var(--header-bg);
@@ -196,7 +201,7 @@ header {
 .resume-btn {
   display: flex;
   justify-content: center;
-  margin: 1.25rem 0;
+  margin-top: 1.25rem;
 }
 
 /* Social Icons */
@@ -230,6 +235,8 @@ header {
 #projects {
   background: var(--bg-color);
   padding: 4rem 2rem;
+ 
+
 }
 
 /* Grid Layouts */
@@ -438,7 +445,7 @@ header {
 
 /* Footer */
 footer {
-  background: var(--darker-bg);
+  background: var(--bg-color);
   padding: 1.25rem;
   text-align: center;
   font-size: 0.9rem;
