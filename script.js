@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize AOS
+  // ✅ Initialize AOS for animations
   AOS.init({
     duration: 800,
     easing: "ease-in-out",
@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   setTimeout(() => {
-     AOS.refresh();
-  },  100);
+    AOS.refresh();
+  }, 100);
 
-  // Array of projects
+  // ✅ Array of projects (sample data)
   const projects = [
     {
       name: "DevConnect",
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (project.link && project.link !== "#") {
         window.open(project.link, "_blank");
       } else {
-        alert("Project link is not available!");
+        button.style.display = "none"; // Hide if no valid link
       }
     });
 
@@ -80,56 +80,116 @@ document.addEventListener("DOMContentLoaded", () => {
 
     AOS.refresh();
   }
+// ✅ Function to manage mobile menu toggle
+function setupMobileMenu() {
+  const menuIcon = document.querySelector(".hamburger-menu");
+  const mobileMenu = document.querySelector("#navbar ul");
+  const body = document.body;
 
-  function setupMobileMenu() {
-    const menuIcon = document.querySelector(".menu-icon");
-    const mobileMenu = document.querySelector("#navbar ul");
+  if (!menuIcon || !mobileMenu) return;
 
-    if (!menuIcon || !mobileMenu) return;
+  // Function to toggle menu
+  function toggleMenu() {
+    mobileMenu.classList.toggle("active");
+    body.classList.toggle("menu-open");
 
-    menuIcon.addEventListener("click", () => {
-      mobileMenu.classList.toggle("active");
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!menuIcon.contains(e.target) && !mobileMenu.contains(e.target)) {
-        mobileMenu.classList.remove("active");
-      }
-    });
-
-    mobileMenu.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => mobileMenu.classList.remove("active"));
-    });
+    // Prevent scrolling when menu is open
+    if (mobileMenu.classList.contains("active")) {
+      body.style.overflow = "hidden";
+    } else {
+      body.style.overflow = "";
+    }
   }
 
+  // Click or touch event for opening menu
+  menuIcon.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (
+      mobileMenu.classList.contains("active") &&
+      !menuIcon.contains(e.target) &&
+      !mobileMenu.contains(e.target)
+    ) {
+      mobileMenu.classList.remove("active");
+      body.classList.remove("menu-open");
+      body.style.overflow = ""; // Restore scrolling
+    }
+  });
+
+  // Close menu when clicking on a link inside it
+  mobileMenu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu.classList.remove("active");
+      body.classList.remove("menu-open");
+      body.style.overflow = ""; // Restore scrolling
+    });
+  });
+
+  // Ensure smooth experience on touch devices
+  document.addEventListener("touchstart", (e) => {
+    if (
+      mobileMenu.classList.contains("active") &&
+      !menuIcon.contains(e.target) &&
+      !mobileMenu.contains(e.target)
+    ) {
+      mobileMenu.classList.remove("active");
+      body.classList.remove("menu-open");
+      body.style.overflow = ""; // Restore scrolling
+    }
+  });
+}
+
+  // ✅ Smooth scrolling function
   function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute("href")).scrollIntoView({
-          behavior: "smooth",
-        });
+        const targetElement = document.querySelector(this.getAttribute("href"));
+
+        if (targetElement) {
+          const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+          const currentPosition = window.scrollY;
+
+          if (Math.abs(targetPosition - currentPosition) > 5) {
+            targetElement.scrollIntoView({ behavior: "smooth" });
+          }
+        }
       });
     });
   }
 
+  // ✅ Typed.js function with fallback text
   function setupTypedJS() {
     const typedElement = document.getElementById("typed-output");
-    if (!typedElement || typeof Typed === "undefined") return;
+    if (!typedElement) return;
 
-    new Typed("#typed-output", {
-      strings: ["Full Stack Developer", "Creative Developer", "Design Innovator", "Tech Enthusiast"],
-      typeSpeed: 100,
-      backSpeed: 50,
-      loop: true,
-      onStart: () => (typedElement.style.color = "#4C9FFF"),
-      onStringTyped: () => (typedElement.style.color = "#E1E1E1"),
-    });
+    if (typeof Typed !== "undefined") {
+      new Typed("#typed-output", {
+        strings: ["Full Stack Developer", "Creative Developer", "Design Innovator", "Tech Enthusiast"],
+        typeSpeed: 100,
+        backSpeed: 50,
+        loop: true,
+        onStart: () => (typedElement.style.color = "#4C9FFF"),
+        onStringTyped: () => (typedElement.style.color = "#E1E1E1"),
+      });
+    } else {
+      typedElement.textContent = "Full Stack Developer"; // Fallback text
+    }
   }
 
-  // Load all features on DOMContentLoaded
+  // ✅ Run the functions on page load
   loadProjects();
   setupMobileMenu();
   setupSmoothScroll();
   setupTypedJS();
+  arrangeBadges(); // Arrange badges initially
+
+  // ✅ Example: Add a new badge dynamically after 3 seconds
+  setTimeout(() => {
+    addBadge("frontend-badges", "fab fa-bootstrap", "Bootstrap");
+  }, 2000);
 });
