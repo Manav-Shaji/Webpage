@@ -1,3 +1,9 @@
+// Prevent browser from restoring scroll position after reload
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 // Portfolio Application Manager
 class PortfolioManager {
   constructor() {
