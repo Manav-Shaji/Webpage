@@ -78,8 +78,6 @@ header {
   left: 0;
   width: 100%;
   z-index: 1000;
-/*   box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
   transition: all 0.3s ease-in-out;
 }
 
@@ -135,7 +133,8 @@ header {
 
 /* Home Section */
 #home {
-  height: 100vh;
+  min-height: calc(100vh - 4rem); 
+  padding-top: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
